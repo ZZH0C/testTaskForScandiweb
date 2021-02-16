@@ -13,20 +13,21 @@ export default function Carousel(props) {
 
     const sliderLength = slidesArray.length;
 
-
-    if (!arraySizeError(slidesArray))
+    if (!arraySizeError(slidesArray)) {
         return alert("Array size too small to implement slider");
-
+    }
 
     function middlePointReforge(isItLeft) {
         let middlePoint = slides.currentMiddle
         if (isItLeft) {
-            if (middlePoint === 0)
+            if (middlePoint === 0){
                 middlePoint = sliderLength - 1
+            }
             else middlePoint = middlePoint - 1
         } else {
-            if (middlePoint === sliderLength - 1)
+            if (middlePoint === sliderLength - 1) {
                 middlePoint = 0
+            }
             else middlePoint += 1
         }
         slidesSelect(
@@ -40,15 +41,12 @@ export default function Carousel(props) {
         )
     }
 
-
-
     const [slides, slidesSelect] = useState({
         currentMiddle: 0,
         classForL: 'slide',
         classForM: 'slide',
         classForR: 'slide',
     });
-
 
     const elementL = <Slide elem={slidesArray[positionExtract(slides.currentMiddle - 1, sliderLength)]}
                             classes={slides.classForL}/>;
@@ -61,17 +59,16 @@ export default function Carousel(props) {
     let touchEnd = 0;
 
 
-
     return (
         <div className={'slider-container'}>
             <button className={'slider-button button-left'}
                     onClick={() => middlePointReforge(true)}>{leftStick}</button>
             <div
                 onTouchStart={(event) => {
-                    touchStart=(event.changedTouches[0].screenX);
+                    touchStart = (event.changedTouches[0].screenX);
                 }}
                 onTouchEnd={(event) => {
-                    touchEnd=(event.changedTouches[0].screenX);
+                    touchEnd = (event.changedTouches[0].screenX);
                     middlePointReforge(touchStart <= touchEnd);
                 }}
                 className={'slide-screen'}
@@ -92,19 +89,18 @@ function classSelect(className, isLeft) {
             return "slide move-left-1"
         } else
             return "slide move-right-1"
-    }
-    else {
-        if(isLeft){
-            if(className === "slide move-left-1")
+    } else {
+        if (isLeft) {
+            if (className === "slide move-left-1")
                 return "slide move-left-2"
             else return "slide move-left-1"
+        } else {
+            if (className === "slide move-right-1")
+                return "slide move-right-2"
+            else return "slide move-right-1"
         }
-        else{
-        if(className === "slide move-right-1")
-            return "slide move-right-2"
-        else return "slide move-right-1"
-    }}
     }
+}
 
 function positionExtract(pos, len) {
     if (pos < 0) {
