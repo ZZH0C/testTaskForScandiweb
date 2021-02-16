@@ -20,15 +20,17 @@ export default function Carousel(props) {
     function middlePointReforge(isItLeft) {
         let middlePoint = slides.currentMiddle
         if (isItLeft) {
-            if (middlePoint === 0){
+            if (middlePoint === 0) {
                 middlePoint = sliderLength - 1
+            } else {
+                middlePoint = middlePoint - 1
             }
-            else middlePoint = middlePoint - 1
         } else {
             if (middlePoint === sliderLength - 1) {
                 middlePoint = 0
+            } else {
+                middlePoint += 1
             }
-            else middlePoint += 1
         }
         slidesSelect(
             {
@@ -87,17 +89,22 @@ function classSelect(className, isLeft) {
     if (className === "slide") {
         if (isLeft) {
             return "slide move-left-1"
-        } else
+        } else {
             return "slide move-right-1"
+        }
     } else {
         if (isLeft) {
-            if (className === "slide move-left-1")
+            if (className === "slide move-left-1") {
                 return "slide move-left-2"
-            else return "slide move-left-1"
+            } else {
+                return "slide move-left-1"
+            }
         } else {
-            if (className === "slide move-right-1")
+            if (className === "slide move-right-1") {
                 return "slide move-right-2"
-            else return "slide move-right-1"
+            } else {
+                return "slide move-right-1"
+            }
         }
     }
 }
