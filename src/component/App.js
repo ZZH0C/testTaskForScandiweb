@@ -5,7 +5,15 @@ export default function App() {
 
     return (
         <div className={'main-container'}>
-            <Carousel slides={["slide 1","slide 2","slide 3","slide 4","slide 5"]}/>
+            <Carousel slides={
+                [
+                    <button>SLIDE #1</button>,
+                    "slide 2",
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/865111917380159024/6FBBE48A6CA7CAD010DF38D09C56F22333C114F2/" alt="image" />,
+                    44,
+                    "slide 5",
+                ]
+            }/>
         </div>
     );
 }
