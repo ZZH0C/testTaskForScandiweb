@@ -8,7 +8,7 @@
 - [x]  Must support swipes
 - [x]  Must work for any HTML content
 - [x]  Must be animated, finger-following swipes  
-*It is animated, but does not follow your finger*
+*currently there is a bug and i dont know how to fix it
 
 ## Features as advantages:
 
