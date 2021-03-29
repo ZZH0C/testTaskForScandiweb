@@ -1,25 +1,25 @@
-import React, {useState,useRef,useEffect } from "react";
+import React, {useState, useRef, useEffect} from "react";
 import Slide from "./slide";
 
 function classSelect(className, isLeft) {
-    if (className === "slide") {
+    if (className === "slider_item") {
         if (isLeft) {
-            return "slide move-left-1";
+            return "slider_item slider_item_animation-left_1";
         } else {
-            return "slide move-right-1";
+            return "slider_item slider_item_animation-right_1";
         }
     } else {
         if (isLeft) {
-            if (className === "slide move-left-1") {
-                return "slide move-left-2";
+            if (className === "slider_item slider_item_animation-left_1") {
+                return "slider_item slider_item_animation-left_2";
             } else {
-                return "slide move-left-1";
+                return "slider_item slider_item_animation-left_1";
             }
         } else {
-            if (className === "slide move-right-1") {
-                return "slide move-right-2";
+            if (className === "slider_item slider_item_animation-right_1") {
+                return "slider_item slider_item_animation-right_2";
             } else {
-                return "slide move-right-1";
+                return "slider_item slider_item_animation-right_1";
             }
         }
     }
@@ -51,13 +51,13 @@ export default function Carousel(props) {
 
     const [slides, slidesSelect] = useState({
         currentMiddle: 0,
-        classForL: 'slide',
-        classForM: 'slide',
-        classForR: 'slide',
+        classForL: 'slider_item',
+        classForM: 'slider_item',
+        classForR: 'slider_item',
     });
 
     function middlePointReforge(isItLeft) {
-        let middlePoint = slides.currentMiddle
+        let middlePoint = slides.currentMiddle;
         if (isItLeft) {
             if (middlePoint === 0) {
                 middlePoint = sliderLength - 1;
@@ -82,16 +82,14 @@ export default function Carousel(props) {
         )
     }
 
-
     let touchStart = 0;
     let touchEnd = 0;
 
     const middleSlideRef = useRef(null);
-
+    const sliderContainerRef = useRef(null);
 
     const executeScroll = () => {
-        console.log("worked");
-        middleSlideRef.current.scrollIntoView({behavior: 'smooth' });
+        middleSlideRef.current.scrollIntoView({behavior: 'smooth'});
     }
 
     useEffect
@@ -100,22 +98,24 @@ export default function Carousel(props) {
     }, []);
 
     return (
-        <div className={'slider-container'}>
-            <button className={'slider-button button-left'}
+        <div className={'slider_container'}>
+            <button className={'slider_button slider_button_left'}
                     onClick={() => middlePointReforge(true)}>{leftStick}</button>
             <div
-
+                ref={sliderContainerRef}
                 onTouchStart={(event) => {
                     touchStart = (event.changedTouches[0].screenX);
                 }}
                 onTouchEnd={(event) => {
+
                     touchEnd = (event.changedTouches[0].screenX);
-                    if(Math.abs(touchStart-touchEnd)>=40) {
+                    if (Math.abs(touchStart - touchEnd) >= 100) {
                         middlePointReforge(touchStart <= touchEnd);
                     }
                     executeScroll();
                 }}
-                className={'slide-screen'}
+
+                className={'slider_view'}
             >
 
                 <Slide
@@ -125,7 +125,7 @@ export default function Carousel(props) {
                 <div className={slides.classForM}
                      onAnimationEnd={executeScroll}
                      ref={middleSlideRef}>
-                <Slide>{props.slides[slides.currentMiddle]}</Slide>
+                    <Slide>{props.slides[slides.currentMiddle]}</Slide>
                 </div>
                 <Slide
                     classes={slides.classForR}>
@@ -133,8 +133,9 @@ export default function Carousel(props) {
                 </Slide>
 
             </div>
-            <button className={'slider-button button-right'}
+            <button className={'slider_button slider_button_right'}
                     onClick={() => middlePointReforge(false)}>{rightStick}</button>
         </div>
     );
 }
+

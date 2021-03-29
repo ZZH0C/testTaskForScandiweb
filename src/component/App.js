@@ -4,7 +4,7 @@ import Carousel from "./carousel";
 export default function App() {
 
     return (
-        <div className={'main-container'}>
+        <div className={'app_container'}>
             <Carousel slides={
                 [
                     <button>SLIDE #1</button>,
